@@ -1,40 +1,66 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap');
 
-html,
-body {
+html, body {
   margin: 0;
-  border: 0;
+  padding: 0;
   font-family: 'Roboto', sans-serif;
+  color: #111;
 }
 
+/* Layout */
 .header {
   display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  background-color: cadetblue;
+  grid-template-columns: 1fr;     /* stack on mobile */
 }
 
+/* Teal band only behind the text */
 .title {
+  background: cadetblue;
   padding: 50px 25px;
   text-align: center;
+  color: #0e2020;
 }
 
 h1 {
   font-size: 3rem;
-  margin: 0;
+  margin: 0 0 8px 0;
+  font-weight: 700;
 }
 
 h4 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 300;
+  margin: 0;
 }
 
-img {
+/* Image defaults (mobile: natural landscape, full width) */
+.header > img {
   display: block;
+  width: 100%;
+  height: auto;        /* keep natural aspect ratio under 960px */
 }
 
+/* ≥960px: two columns + square crop on the image */
 @media (min-width: 960px) {
   .header {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;  /* text left, image right */
+    min-height: 60vh;                /* just to give it presence */
+  }
+
+  .title {
+    padding: 80px 60px;
+    text-align: left;
+  }
+
+  h1 { font-size: 4rem; }
+  h4 { font-size: 1.25rem; }
+
+  /* Make the image a perfect square and crop it nicely */
+  .header > img {
+    width: 100%;
+    height: auto;          /* height computed from aspect-ratio */
+    aspect-ratio: 1 / 1;   /* square box */
+    object-fit: cover;     /* fill the square, cropping as needed */
+    object-position: center;
   }
 }
