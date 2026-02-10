@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  
+
 <head>
-  <meta charset="UTF-8" />
-  <!-- Using UTF-8 so all characters (symbols, accents, etc.) display correctly -->
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- This makes the layout scale properly on mobile devices instead of zooming out -->
-
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <!-- Helps older browsers render the page in a modern mode -->
-
+  <meta charset="UTF-8">
+  <!-- Ensures the page scales properly on different screen sizes -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Picture This!</title>
-
-  <!-- Main stylesheet for layout + responsive image behavior -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- Links the external CSS file for styling -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
   <header class="header">
-    <!-- 
-      Header is the main “hero” section.
-      I’m using CSS Grid in style.css so the title and image stack on small screens,
-      then become two columns on wider screens.
-    -->
-
+    <!-- Title section for the blog header -->
     <div class="title">
-      <!-- Grouping the title text so the grid can place it cleanly as one block -->
       <h1>Picture This!</h1>
       <h4>My Really Cool Blog Post</h4>
     </div>
 
-    <!-- 
-      Responsive image setup:
-      - Below 960px: we want LANDSCAPE images that fill the viewport width (sizes="100vw")
-      - 960px and up: layout becomes 2 columns, and the image is about half the viewport (sizes="50vw"),
-        so we serve SQUARE images.
-      
-      IMPORTANT: These filenames MUST match your images folder exactly.
-      From your screenshot, your square images are .png and your landscape images are .jpg.
+    <!--
+      The <picture> element allows the browser to choose
+      which image to load based on screen size and resolution.
+      This helps with responsiveness and performance.
     -->
     <picture>
-      <!-- Square images for desktop (>= 960px) -->
+
+      <!--
+        This <source> is used when the viewport is 960px or wider.
+        Square images are loaded here.
+        The srcset attribute provides multiple image sizes,
+        allowing the browser to pick the most appropriate one.
+        The sizes attribute tells the browser the image will
+        take up about half the viewport width.
+      -->
       <source
         media="(min-width: 960px)"
         srcset="
-          images/museum-square-480x.png 480w,
-          images/museum-square-640x.png 640w,
-          images/museum-square-800x.png 800w,
-          images/museum-square-960x.png 960w,
-          images/museum-square-1280x.png 1280w,
-          images/museum-square-1600x.png 1600w,
-          images/museum-square-1920x.png 1920w,
-          images/museum-square-2400x.png 2400w
+          images/museum-sqaure-480x.png 480w,
+          images/museum-sqaure-640x.png 640w,
+          images/museum-sqaure-800x.png 800w,
+          images/museum-sqaure-960x.png 960w,
+          images/museum-sqaure-1280x.png 1280w,
+          images/museum-sqaure-1440x.png 1440w,
+          images/museum-sqaure-1600x.png 1600w,
+          images/museum-sqaure-1920x.png 1920w,
+          images/museum-sqaure-2400x.png 2400w
         "
         sizes="50vw"
-      />
+      >
 
-      <!-- Fallback/default: landscape images for mobile/tablet (< 960px) -->
+      <!--
+        This <img> element is used for viewports smaller than 960px.
+        Landscape images are shown at full viewport width.
+        It also acts as a fallback if the <source> above is not supported.
+      -->
       <img
-        class="hero-img"
         src="images/museum-2-960x.jpg"
         srcset="
-          images/museum-2-320px.jpg 320w,
-          images/museum-2-480x.jpg 480w,
+          images/museum-2.320px.jpg 320w,
           images/museum-2-640x.jpg 640w,
           images/museum-2-720x.jpg 720w,
           images/museum-2-960x.jpg 960w,
@@ -73,9 +68,10 @@
           images/museum-2-2880x.jpg 2880w
         "
         sizes="100vw"
-        alt="Interior of a museum room with framed paintings and seating"
-      />
+        alt="Museum interior with paintings"
+      >
     </picture>
+
   </header>
 </body>
 

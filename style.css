@@ -1,76 +1,95 @@
+/* Importing the Roboto font from Google Fonts
+   - 300 weight is used for lighter text
+   - 700 weight is used for bold headings */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,700&display=swap');
-/*
-  I import Roboto because the assignment design uses a clean sans-serif font.
-  Using Google Fonts keeps typography consistent across computers (no guessing).
-*/
 
-html,
-body {
+/* Reset default browser spacing and apply global font styles */
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  /*
-    Browsers add default margins, which can create unwanted white borders.
-    Resetting margin/padding gives me full control of spacing.
-  */
+  color: #111;
 }
 
+/* Layout */
+
+/* Header uses CSS Grid
+   Mobile-first approach: one column by default */
 .header {
   display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  background-color: cadetblue;
-  /*
-    I use Grid because the layout changes based on screen width:
-    - On small screens: 1 column (title stacked above image)
-    - On large screens: 2 columns (title beside image)
-    Grid is the cleanest tool for that switch.
-  */
+  grid-template-columns: 1fr;     /* Stack content vertically on small screens */
 }
 
+/* Title section styling */
+
+/* Teal background band that appears only behind the text */
 .title {
+  background: cadetblue;
   padding: 50px 25px;
   text-align: center;
-  /*
-    Padding creates breathing room around the text so it doesn’t feel cramped.
-    Centered text matches the sample layout and keeps it balanced.
-  */
+  color: #0e2020;
 }
 
+/* Main heading styling */
 h1 {
   font-size: 3rem;
-  margin: 0;
-  /*
-    Headings usually have default margins that can break the design spacing.
-    Setting margin:0 keeps the title positioned consistently.
-  */
+  margin: 0 0 8px 0;
+  font-weight: 700; /* Bold weight from imported font */
 }
 
+/* Subtitle styling */
 h4 {
-  font-size: 1.5rem;
-  font-weight: 300;
-  /*
-    A lighter weight makes this look like a subtitle, so the title stays the focus.
-  */
+  font-size: 1.25rem;
+  font-weight: 300; /* Light weight from imported font */
+  margin: 0;
 }
 
-.hero-img {
+/*  Image styles (mobile default) */
+
+/*
+  By default (mobile view):
+  - The landscape image fills the width of the screen
+  - Height is automatic to preserve aspect ratio
+  - We target .header img because the image is inside <picture>
+*/
+.header img {
   display: block;
   width: 100%;
   height: auto;
-  /*
-    Images are inline by default, which can create weird gaps.
-    display:block removes that gap, and width:100% makes it responsive.
-    height:auto preserves the aspect ratio so the image never stretches.
-  */
 }
 
+/* Desktop styles (960px and up) */
+
 @media (min-width: 960px) {
+
+  /* Switch to a two-column layout:
+     text on the left, image on the right */
   .header {
     grid-template-columns: 1fr 1fr;
-    /*
-      At 960px and up, I switch to 2 columns.
-      This is why the <picture> swaps to a square image: it fits the half-width column better.
-    */
+    min-height: 60vh;
+  }
+
+  /* Increase spacing and align text to the left on larger screens */
+  .title {
+    padding: 80px 60px;
+    text-align: left;
+  }
+
+  /* Scale typography for desktop */
+  h1 { font-size: 4rem; }
+  h4 { font-size: 1.25rem; }
+
+  /*
+    On large screens, the assignment requires a square image.
+    - aspect-ratio forces a 1:1 square
+    - object-fit ensures the image fills the square without distortion
+    - object-position keeps the image centered
+  */
+  .header img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
   }
 }
