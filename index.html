@@ -1,22 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <!-- Using UTF-8 so all characters (symbols, accents, etc.) display correctly -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- This makes the layout scale properly on mobile devices instead of zooming out -->
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!-- Helps older browsers render the page in a modern mode -->
+
   <title>Picture This!</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- Main stylesheet for layout + responsive image behavior -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
   <header class="header">
+    <!-- 
+      Header is the main “hero” section.
+      I’m using CSS Grid in style.css so the title and image stack on small screens,
+      then become two columns on wider screens.
+    -->
+
     <div class="title">
+      <!-- Grouping the title text so the grid can place it cleanly as one block -->
       <h1>Picture This!</h1>
       <h4>My Really Cool Blog Post</h4>
     </div>
-    <img src="images/museum.jpg" alt="placeholder">
 
+    <!-- 
+      Responsive image setup:
+      - Below 960px: we want LANDSCAPE images that fill the viewport width (sizes="100vw")
+      - 960px and up: layout becomes 2 columns, and the image is about half the viewport (sizes="50vw"),
+        so we serve SQUARE images.
+      
+      IMPORTANT: These filenames MUST match your images folder exactly.
+      From your screenshot, your square images are .png and your landscape images are .jpg.
+    -->
+    <picture>
+      <!-- Square images for desktop (>= 960px) -->
+      <source
+        media="(min-width: 960px)"
+        srcset="
+          images/museum-square-480x.png 480w,
+          images/museum-square-640x.png 640w,
+          images/museum-square-800x.png 800w,
+          images/museum-square-960x.png 960w,
+          images/museum-square-1280x.png 1280w,
+          images/museum-square-1600x.png 1600w,
+          images/museum-square-1920x.png 1920w,
+          images/museum-square-2400x.png 2400w
+        "
+        sizes="50vw"
+      />
+
+      <!-- Fallback/default: landscape images for mobile/tablet (< 960px) -->
+      <img
+        class="hero-img"
+        src="images/museum-2-960x.jpg"
+        srcset="
+          images/museum-2-320px.jpg 320w,
+          images/museum-2-480x.jpg 480w,
+          images/museum-2-640x.jpg 640w,
+          images/museum-2-720x.jpg 720w,
+          images/museum-2-960x.jpg 960w,
+          images/museum-2-1440x.jpg 1440w,
+          images/museum-2-1920x.jpg 1920w,
+          images/museum-2-2160x.jpg 2160w,
+          images/museum-2-2880x.jpg 2880w
+        "
+        sizes="100vw"
+        alt="Interior of a museum room with framed paintings and seating"
+      />
+    </picture>
   </header>
 </body>
 
